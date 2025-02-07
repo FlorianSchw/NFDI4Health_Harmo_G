@@ -1,0 +1,69 @@
+---
+title: pooled_harmonized_dataset
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+---
+
+
+# About the dataset {.unnumbered #about}
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+
+library(fabR)
+library(madshapR)
+library(DT)
+library(dplyr)
+library(tidyr)
+library(stringr)
+
+load(file = paste0("C:/Users/schwarz-f/Desktop/NFDI4Health_Harmo/output/rmonize_report/GINI_P1_20250128_151731/src/r_env.RData"))
+
+```
+--------------------------------------------------------------------------------
+
+
+## Overview
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+
+Overview <- dataset_summary[str_detect(names(dataset_summary), "Overview")][[1]]
+
+datatable(Overview, 
+    colnames = rep("",ncol(Overview)),
+    options = list(pageLength = nrow(Overview),scrollX = TRUE),
+    rownames = FALSE,escape = FALSE)
+
+```
+
+--------------------------------------------------------------------------------
+
+
+## Variables summary
+
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+
+
+# if(toc == "variables"){
+
+  datatable(
+    data_dict_flat %>%
+      mutate(
+        name = ifelse(name %in% col_id, name, paste0(
+        "<a href=\"./var",`index in data dict.`,".html\" >",name,"</a>"))),
+    options=list(scrollX = TRUE,pageLength=20),rownames = FALSE,escape = FALSE)
+
+# }else{
+# 
+#   datatable(
+#     data_dict_flat,
+#     options = 
+#       list(scrollX = TRUE, pageLength=20),rownames = FALSE,escape = FALSE)
+# 
+# }
+
+```
+
+--------------------------------------------------------------------------------
+
+
